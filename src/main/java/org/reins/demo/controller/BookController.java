@@ -1,0 +1,26 @@
+package org.reins.demo.controller;
+
+import org.reins.demo.model.Book;
+import org.reins.demo.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@CrossOrigin
+@RequestMapping(value = "/book")
+public class BookController {
+    @Autowired
+    private BookService bookService;
+
+    @GetMapping(name = "/find")
+    List<Book> findBook(String bookname) {
+        return bookService.findBook(bookname);
+    }
+
+    @PostMapping(name = "/pay")
+    Integer buyBook(Integer userId, Integer bookId, Integer num) {
+        return bookService.buyBook(userId, bookId, num);
+    }
+}
