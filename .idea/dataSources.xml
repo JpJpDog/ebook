@@ -7,7 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/ebook</jdbc-url>
     </data-source>
+<<<<<<< HEAD
     <data-source source="LOCAL" name="ebook@localhost [2]" uuid="aa4a583f-bffa-4fdb-8498-6f41f44782e0">
+=======
+    <data-source source="LOCAL" name="ebook@localhost [2]" uuid="387c2209-7167-4fee-a2dd-e7a281948dbc">
+>>>>>>> 5b953c431e1c9cc9fad40d84e9da2f319828efdf
       <driver-ref>mongo</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.dbschema.MongoJdbcDriver</jdbc-driver>
