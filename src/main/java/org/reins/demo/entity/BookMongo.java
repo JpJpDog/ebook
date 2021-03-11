@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 
 @Data
-@Document(collection = "bookData")
+@Document("bookData")
 public class BookMongo {
     @Id
     @Field("_id")

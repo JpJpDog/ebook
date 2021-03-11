@@ -16,24 +16,24 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/cart")
+@RequestMapping("/cart")
 public class CartController {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
-    @PostMapping(value = "/update")
+    @PostMapping("/update")
     void updateCart(Integer bookId, Integer num) {
         CartService cartService = webApplicationContext.getBean(CartService.class);
         cartService.updateCartItem(bookId, num);
     }
 
-    @PostMapping(value = "/delete")
+    @PostMapping("/delete")
     void deleteCart(Integer bookId) {
         CartService cartService = webApplicationContext.getBean(CartService.class);
         cartService.deleteCartItem(bookId);
     }
 
-    @PostMapping(value = "/pay")
+    @PostMapping("/pay")
     Integer payCart(@RequestBody String str) {
         JSONObject jsonObject = JSONObject.fromObject(str);
         Integer userId = (Integer) jsonObject.get("userId");
@@ -42,7 +42,7 @@ public class CartController {
         return cartService.payCartItem(bookIds, userId);
     }
 
-    @GetMapping(value = "/getList")
+    @GetMapping("/getList")
     List<CartItem> getCarts() {
         CartService cartService = webApplicationContext.getBean(CartService.class);
         return cartService.getCartItems();

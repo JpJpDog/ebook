@@ -22,4 +22,10 @@ public class UserDaoImpl implements UserDao {
     public void saveUser(UserE user) {
         userRepository.save(user);
     }
+
+    @Override
+    public Integer addUser(UserE user) {
+        UserE new_user = userRepository.save(user);
+        return new_user.getId();
+    }
 }

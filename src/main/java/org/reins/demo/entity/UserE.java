@@ -16,5 +16,6 @@ public class UserE {
     private Integer id;
 
     String name;
+    String password;
     Integer money;
 }

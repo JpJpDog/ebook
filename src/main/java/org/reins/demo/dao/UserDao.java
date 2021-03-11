@@ -8,4 +8,6 @@ public interface UserDao {
     Optional<UserE> findByUserId(Integer userId);
 
     void saveUser(UserE user);
+
+    Integer addUser(UserE user);
 }
