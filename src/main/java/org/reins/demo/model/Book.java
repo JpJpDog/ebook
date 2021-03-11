@@ -4,10 +4,12 @@ import lombok.Data;
 import org.reins.demo.entity.BookE;
 import org.reins.demo.entity.BookMongo;
 
-import java.util.Optional;
+import java.io.Serializable;
+
 
 @Data
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = 6529685098267757690L;
     private Integer bookId;
     private String bookName;
     private Integer price;

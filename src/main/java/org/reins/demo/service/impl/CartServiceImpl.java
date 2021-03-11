@@ -21,9 +21,6 @@ public class CartServiceImpl implements CartService {
     private BookDao bookDao;
 
     @Autowired
-    private OrderService orderService;
-
-    @Autowired
     private MessageService messageService;
 
     final private Map<Integer, CartItemE> cartItemEMap = new HashMap<>();
