@@ -1,10 +1,9 @@
 package org.reins.demo.controller;
 
+import org.reins.demo.dao.OrderDao;
 import org.reins.demo.model.Order;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -12,8 +11,11 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/order")
 public class OrderController {
+    @Autowired
+    private OrderDao orderDao;
+
     @GetMapping("/all")
     List<Order> getOrders(Integer userId) {
-        return null;
+        return orderDao.findAllByUserId(userId);
     }
 }

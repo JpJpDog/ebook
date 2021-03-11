@@ -10,7 +10,7 @@ public interface CartService {
 
     void deleteCartItem(Integer bookId);
 
-    Integer payCartItem(List<Integer> bookIds,Integer userId);
+    Integer toOrder(List<Integer> bookIds, Integer userId, String address);
 
     List<CartItem> getCartItems();
 }

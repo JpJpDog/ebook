@@ -2,6 +2,7 @@ package org.reins.demo.dao.impl;
 
 import org.reins.demo.dao.BookDao;
 import org.reins.demo.dao.OrderDao;
+import org.reins.demo.entity.CartItemE;
 import org.reins.demo.entity.OrderE;
 import org.reins.demo.entity.OrderItemE;
 import org.reins.demo.model.Book;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -23,8 +26,27 @@ public class OrderDaoImpl implements OrderDao {
     @Autowired
     private BookDao bookDao;
 
+
     @Override
-    public List<Order> findByUserId(Integer userId) {
+    public void setOrderPay(Order order) {
+        orderRepository.save(new OrderE(order));
+    }
+
+    @Override
+    public Order findById(Integer orderId) {
+        Optional<OrderE> orderEOptional = orderRepository.findById(orderId);
+        if (orderEOptional.isEmpty()) return null;
+        OrderE orderE = orderEOptional.get();
+        List<OrderItemE> orderItemES = orderItemRepository.findAllByOrderId(orderId);
+        List<Book> books = new ArrayList<>();
+        for (OrderItemE orderItemE : orderItemES) {
+            books.add(bookDao.findByIdE(orderItemE.getBookId()));
+        }
+        return new Order(orderE, books, orderItemES);
+    }
+
+    @Override
+    public List<Order> findAllByUserId(Integer userId) {
         List<Order> orders = new ArrayList<>();
         List<OrderE> orderES = orderRepository.findAllByUserId(userId);
         for (OrderE orderE : orderES) {
@@ -33,8 +55,20 @@ public class OrderDaoImpl implements OrderDao {
             for (OrderItemE orderItemE : orderItemES) {
                 books.add(bookDao.findById(orderItemE.getBookId()));
             }
-            orders.add(new Order(orderE.getDate(), orderE.getAddress(), books, orderItemES));
+            orders.add(new Order(orderE, books, orderItemES));
         }
         return orders;
     }
+
+    @Override
+    public Integer addOrder(Integer userId, String address, List<CartItemE> books) {
+        OrderE orderE = new OrderE(userId, address, new Date());
+        Integer orderId = orderRepository.save(orderE).getId();
+        for (CartItemE bookItem : books) {
+            OrderItemE orderItemE = new OrderItemE(orderId, bookItem.getBookId(), bookItem.getNum());
+            orderItemRepository.save(orderItemE);
+        }
+        return orderId;
+    }
+
 }

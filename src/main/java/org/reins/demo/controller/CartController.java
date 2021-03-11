@@ -29,13 +29,14 @@ public class CartController {
         cartService.deleteCartItem(bookId);
     }
 
-    @PostMapping("/pay")
-    Integer payCart(@RequestBody String str) {
+    @PostMapping("/toOrder")
+    Integer toOrderCart(@RequestBody String str) {
         JSONObject jsonObject = JSONObject.fromObject(str);
         Integer userId = (Integer) jsonObject.get("userId");
+        String address = (String) jsonObject.get("address");
         List<Integer> bookIds = (List<Integer>) jsonObject.get("bookIds");
         CartService cartService = webApplicationContext.getBean(CartService.class);
-        return cartService.payCartItem(bookIds, userId);
+        return cartService.toOrder(bookIds, userId, address);
     }
 
     @GetMapping("/getList")

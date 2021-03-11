@@ -1,14 +1,19 @@
 package org.reins.demo.dao;
 
-import org.reins.demo.entity.OrderE;
+import org.reins.demo.entity.CartItemE;
 import org.reins.demo.entity.OrderItemE;
 import org.reins.demo.model.Order;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface OrderDao {
-    List<Order> findByUserId(Integer userId);
+    void setOrderPay(Order order);
+
+    Order findById(Integer orderId);
+
+    List<Order> findAllByUserId(Integer userId);
+
+    Integer addOrder(Integer userId, String address, List<CartItemE> books);
 }

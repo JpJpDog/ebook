@@ -4,7 +4,7 @@ import org.reins.demo.dao.BookDao;
 import org.reins.demo.entity.CartItemE;
 import org.reins.demo.model.Book;
 import org.reins.demo.service.BookService;
-import org.reins.demo.service.PayService;
+import org.reins.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
     @Autowired
-    private PayService payService;
+    private OrderService orderService;
 
     @Override
     public List<Book> findBook(String bookname) {
@@ -25,10 +25,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Integer buyBook(Integer userId, Integer bookId, Integer num) {
+    public Integer buyBook(Integer userId, Integer bookId, Integer num, String address) {
         List<CartItemE> cartItemES = new ArrayList<>();
         cartItemES.add(new CartItemE(bookId, num, new Date()));
-        return payService.payBooks(cartItemES, userId);
+        return orderService.addOrder(userId, address, cartItemES);
     }
 
     @Override

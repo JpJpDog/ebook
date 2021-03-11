@@ -4,7 +4,7 @@ import org.reins.demo.dao.BookDao;
 import org.reins.demo.entity.CartItemE;
 import org.reins.demo.model.CartItem;
 import org.reins.demo.service.CartService;
-import org.reins.demo.service.PayService;
+import org.reins.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class CartServiceImpl implements CartService {
     BookDao bookDao;
 
     @Autowired
-    PayService payService;
+    OrderService orderService;
 
     final private Map<Integer, CartItemE> cartItemEMap = new HashMap<>();
     final private LinkedList<CartItemE> cartItemES = new LinkedList<>();
@@ -45,21 +45,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Integer payCartItem(List<Integer> bookIds, Integer userId) {
+    public Integer toOrder(List<Integer> bookIds, Integer userId, String address) {
         List<CartItemE> buyCartItemEs = new ArrayList<>(bookIds.size());
         for (Integer bookId : bookIds) {
             CartItemE cartItemE = cartItemEMap.remove(bookId);
             cartItemES.remove(cartItemE);
             buyCartItemEs.add(cartItemE);
         }
-        return payService.payBooks(buyCartItemEs, userId);
+        return orderService.addOrder(userId, address, buyCartItemEs);
     }
 
     @Override
     public List<CartItem> getCartItems() {
         List<CartItem> cartItems = new ArrayList<>(cartItemES.size());
         for (CartItemE cartItemE : cartItemES) {
-            cartItems.add(new CartItem(bookDao.findById(cartItemE.getBookId()), cartItemE.getDate()));
+            cartItems.add(new CartItem(bookDao.findById(cartItemE.getBookId()), cartItemE.getDate(), cartItemE.getNum()));
         }
         return cartItems;
     }

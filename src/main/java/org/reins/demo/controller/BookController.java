@@ -20,7 +20,7 @@ public class BookController {
     }
 
     @PostMapping(name = "/pay")
-    Integer buyBook(Integer userId, Integer bookId, Integer num) {
-        return bookService.buyBook(userId, bookId, num);
+    Integer buyBook(Integer userId, Integer bookId, Integer num, String address) {
+        return bookService.buyBook(userId, bookId, num, address);
     }
 }
