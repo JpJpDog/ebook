@@ -21,11 +21,13 @@ public class Book {
         this.description = description;
     }
 
-    public Book(BookE bookE, Optional<BookMongo> bookMongo) {
+    public Book(BookE bookE, BookMongo bookMongo) {
         bookId = bookE.getId();
         bookName = bookE.getName();
         price = bookE.getPrice();
         stock = bookE.getStock();
-        bookMongo.ifPresent(mongo -> description = mongo.getDescription());
+        if(bookMongo!=null){
+            this.description=bookMongo.getDescription();
+        }
     }
 }

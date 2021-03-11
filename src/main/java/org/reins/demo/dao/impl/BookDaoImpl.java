@@ -24,15 +24,15 @@ public class BookDaoImpl implements BookDao {
     public Book findById(Integer bookId) {
         Optional<BookE> bookE = bookRepository.findById(bookId);
         if (bookE.isEmpty()) return null;
-        Optional<BookMongo> bookMongo = bookMongoRepository.findByBookId(bookId);
-        return new Book(bookE.get(), bookMongo);
+        List<BookMongo> bookMongos = bookMongoRepository.findByBookId(bookId);
+        return new Book(bookE.get(), bookMongos.size() >= 1 ? bookMongos.get(0) : null);
     }
 
     @Override
     public Book findByIdE(Integer bookId) {
         Optional<BookE> bookE = bookRepository.findById(bookId);
         if (bookE.isEmpty()) return null;
-        return new Book(bookE.get(), Optional.empty());
+        return new Book(bookE.get(), null);
     }
 
     @Override
@@ -44,9 +44,10 @@ public class BookDaoImpl implements BookDao {
     @Override
     public List<Book> findByNameLike(String name) {
         List<BookE> bookES = bookRepository.findAllByNameContaining(name);
-        List<Book> books=new ArrayList<>();
+        List<Book> books = new ArrayList<>();
         for (BookE bookE : bookES) {
-            books.add(new Book(bookE, bookMongoRepository.findByBookId(bookE.getId())));
+            List<BookMongo> bookMongos = bookMongoRepository.findByBookId(bookE.getId());
+            books.add(new Book(bookE, bookMongos.size() >= 1 ? bookMongos.get(0) : null));
         }
         return books;
     }

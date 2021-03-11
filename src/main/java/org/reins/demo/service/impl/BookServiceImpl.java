@@ -2,8 +2,11 @@ package org.reins.demo.service.impl;
 
 import org.reins.demo.dao.BookDao;
 import org.reins.demo.entity.CartItemE;
+import org.reins.demo.message.OrderItemMsg;
+import org.reins.demo.message.OrderMsg;
 import org.reins.demo.model.Book;
 import org.reins.demo.service.BookService;
+import org.reins.demo.service.MessageService;
 import org.reins.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private MessageService messageService;
 
     @Override
     public List<Book> findBook(String bookname) {
@@ -26,9 +31,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Integer buyBook(Integer userId, Integer bookId, Integer num, String address) {
-        List<CartItemE> cartItemES = new ArrayList<>();
-        cartItemES.add(new CartItemE(bookId, num, new Date()));
-        return orderService.addOrder(userId, address, cartItemES);
+        List<OrderItemMsg> orderItemMsgs = new ArrayList<>();
+        orderItemMsgs.add(new OrderItemMsg(bookId, num));
+        return messageService.sendMsg("book_order", new OrderMsg(userId, address, orderItemMsgs));
     }
 
     @Override

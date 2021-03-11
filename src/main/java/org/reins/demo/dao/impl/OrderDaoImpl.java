@@ -5,6 +5,8 @@ import org.reins.demo.dao.OrderDao;
 import org.reins.demo.entity.CartItemE;
 import org.reins.demo.entity.OrderE;
 import org.reins.demo.entity.OrderItemE;
+import org.reins.demo.message.OrderItemMsg;
+import org.reins.demo.message.OrderMsg;
 import org.reins.demo.model.Book;
 import org.reins.demo.model.Order;
 import org.reins.demo.repository.OrderItemERepository;
@@ -61,10 +63,10 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Integer addOrder(Integer userId, String address, List<CartItemE> books) {
-        OrderE orderE = new OrderE(userId, address, new Date());
+    public Integer addOrder(OrderMsg msg) {
+        OrderE orderE = new OrderE(msg.getUserId(), msg.getAddress(), new Date());
         Integer orderId = orderRepository.save(orderE).getId();
-        for (CartItemE bookItem : books) {
+        for (OrderItemMsg bookItem : msg.getItems()) {
             OrderItemE orderItemE = new OrderItemE(orderId, bookItem.getBookId(), bookItem.getNum());
             orderItemRepository.save(orderItemE);
         }

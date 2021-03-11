@@ -2,6 +2,7 @@ package org.reins.demo.dao;
 
 import org.reins.demo.entity.CartItemE;
 import org.reins.demo.entity.OrderItemE;
+import org.reins.demo.message.OrderMsg;
 import org.reins.demo.model.Order;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,5 @@ public interface OrderDao {
 
     List<Order> findAllByUserId(Integer userId);
 
-    Integer addOrder(Integer userId, String address, List<CartItemE> books);
+    Integer addOrder(OrderMsg orderMsg);
 }

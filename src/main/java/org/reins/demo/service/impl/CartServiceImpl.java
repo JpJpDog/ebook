@@ -2,8 +2,11 @@ package org.reins.demo.service.impl;
 
 import org.reins.demo.dao.BookDao;
 import org.reins.demo.entity.CartItemE;
+import org.reins.demo.message.OrderItemMsg;
+import org.reins.demo.message.OrderMsg;
 import org.reins.demo.model.CartItem;
 import org.reins.demo.service.CartService;
+import org.reins.demo.service.MessageService;
 import org.reins.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,10 +18,13 @@ import java.util.*;
 @Scope("session")
 public class CartServiceImpl implements CartService {
     @Autowired
-    BookDao bookDao;
+    private BookDao bookDao;
 
     @Autowired
-    OrderService orderService;
+    private OrderService orderService;
+
+    @Autowired
+    private MessageService messageService;
 
     final private Map<Integer, CartItemE> cartItemEMap = new HashMap<>();
     final private LinkedList<CartItemE> cartItemES = new LinkedList<>();
@@ -46,13 +52,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Integer toOrder(List<Integer> bookIds, Integer userId, String address) {
-        List<CartItemE> buyCartItemEs = new ArrayList<>(bookIds.size());
+        List<OrderItemMsg> orderItemMsgs = new ArrayList<>(bookIds.size());
         for (Integer bookId : bookIds) {
             CartItemE cartItemE = cartItemEMap.remove(bookId);
             cartItemES.remove(cartItemE);
-            buyCartItemEs.add(cartItemE);
+            orderItemMsgs.add(new OrderItemMsg(cartItemE.getBookId(), cartItemE.getNum()));
         }
-        return orderService.addOrder(userId, address, buyCartItemEs);
+        return messageService.sendMsg("book_order", new OrderMsg(userId, address, orderItemMsgs));
     }
 
     @Override
