@@ -9,12 +9,12 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/book")
+@RequestMapping("/book")
 public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping(name = "/find")
+    @GetMapping("/find")
     List<Book> findBook(String bookname) {
         return bookService.findBook(bookname);
     }

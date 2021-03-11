@@ -43,11 +43,22 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public List<Book> findByNameLike(String name) {
-        List<BookE> bookES = bookRepository.findByNameLike(name);
+        List<BookE> bookES = bookRepository.findAllByNameContaining(name);
         List<Book> books=new ArrayList<>();
         for (BookE bookE : bookES) {
             books.add(new Book(bookE, bookMongoRepository.findByBookId(bookE.getId())));
         }
         return books;
+    }
+
+    @Override
+    public Integer addBook(Book book) {
+        BookE bookE = new BookE(book);
+        Integer newId = bookRepository.save(bookE).getId();
+        BookMongo bookMongo = new BookMongo();
+        bookMongo.setBookId(newId);
+        bookMongo.setDescription(book.getDescription());
+        bookMongoRepository.save(bookMongo);
+        return newId;
     }
 }

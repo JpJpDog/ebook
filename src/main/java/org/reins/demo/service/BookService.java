@@ -10,4 +10,7 @@ public interface BookService {
     List<Book> findBook(String bookname);
 
     Integer buyBook(Integer userId, Integer bookId, Integer num);
+
+    Integer addBook(String bookname, Integer price, Integer stock, String description);
+
 }

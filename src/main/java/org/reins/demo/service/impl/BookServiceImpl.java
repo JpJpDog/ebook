@@ -30,4 +30,10 @@ public class BookServiceImpl implements BookService {
         cartItemES.add(new CartItemE(bookId, num, new Date()));
         return payService.payBooks(cartItemES, userId);
     }
+
+    @Override
+    public Integer addBook(String bookname, Integer price, Integer stock, String description) {
+        Book book = new Book(bookname, price, stock, description);
+        return bookDao.addBook(book);
+    }
 }

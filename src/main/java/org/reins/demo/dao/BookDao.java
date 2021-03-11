@@ -12,4 +12,6 @@ public interface BookDao {
     void saveBookE(Book book);
 
     List<Book> findByNameLike(String name);
+
+    Integer addBook(Book book);
 }
