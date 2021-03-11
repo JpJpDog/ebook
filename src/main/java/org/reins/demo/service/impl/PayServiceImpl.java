@@ -5,6 +5,7 @@ import org.reins.demo.dao.UserDao;
 import org.reins.demo.entity.CartItemE;
 import org.reins.demo.entity.UserE;
 import org.reins.demo.model.Book;
+import org.reins.demo.model.User;
 import org.reins.demo.service.PayService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,10 @@ public class PayServiceImpl implements PayService {
     @Transactional(rollbackFor = Exception.class)
     public Integer payBooks(List<CartItemE> cartItemES, Integer userId) {
         try {
-            Optional<UserE> buyerOptional = userDao.findByUserId(userId);
-            if (buyerOptional.isEmpty()) {
+            User buyer = userDao.findByUserId(userId);
+            if (buyer==null) {
                 throw new Exception();
             }
-            UserE buyer = buyerOptional.get();
             Integer allMoney = buyer.getMoney();
             Integer paySum = 0;
             for (CartItemE cartItemE : cartItemES) {

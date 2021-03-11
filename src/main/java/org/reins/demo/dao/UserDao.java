@@ -1,13 +1,15 @@
 package org.reins.demo.dao;
 
 import org.reins.demo.entity.UserE;
+import org.reins.demo.model.User;
 
 import java.util.Optional;
 
 public interface UserDao {
-    Optional<UserE> findByUserId(Integer userId);
+    User findByUserId(Integer userId);
 
-    void saveUser(UserE user);
-    Integer addUser(UserE user);
+    void saveUser(User user);
+
+    Integer addUser(User user);
 
 }

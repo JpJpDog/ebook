@@ -2,6 +2,7 @@ package org.reins.demo.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.reins.demo.model.User;
 
 import javax.persistence.*;
 
@@ -18,4 +19,10 @@ public class UserE {
     String name;
     String password;
     Integer money;
+
+    public UserE(User user) {
+        this.name = user.getName();
+        this.password = user.getPassword();
+        this.money = user.getMoney();
+    }
 }

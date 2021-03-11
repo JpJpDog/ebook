@@ -10,7 +10,5 @@ import java.util.List;
 
 @Repository
 public interface OrderDao {
-    List<OrderE> findOrderByUserId(Integer userId);
-
-    List<OrderItemE> findOrderItemByOrderId(Integer bookId);
+    List<Order> findByUserId(Integer userId);
 }

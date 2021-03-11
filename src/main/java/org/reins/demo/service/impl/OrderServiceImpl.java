@@ -18,11 +18,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getOrders(Integer userId) {
-        List<Order> orders = new ArrayList<>();
-        List<OrderE> orderES = orderDao.findOrderByUserId(userId);
-        for (OrderE orderE : orderES) {
-            List<OrderItemE> orderItemES=orderDao.findOrderItemByOrderId(orderE.getId());
-        }
-        return null;
+        return orderDao.findByUserId(userId);
     }
 }
