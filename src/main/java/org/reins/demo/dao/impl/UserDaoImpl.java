@@ -7,6 +7,8 @@ import org.reins.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -28,5 +30,15 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Integer addUser(User user) {
         return userRepository.save(new UserE(user)).getId();
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<UserE> userES = userRepository.findAll();
+        List<User> users = new ArrayList<>();
+        for (UserE userE : userES) {
+            users.add(new User(userE));
+        }
+        return users;
     }
 }

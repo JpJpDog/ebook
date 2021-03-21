@@ -1,8 +1,8 @@
 package org.reins.demo.service.impl;
 
 import org.reins.demo.dao.BookDao;
-import org.reins.demo.message.OrderItemMsg;
-import org.reins.demo.message.OrderMsg;
+import org.reins.demo.kafka_msg.OrderItemMsg;
+import org.reins.demo.kafka_msg.OrderMsg;
 import org.reins.demo.model.Book;
 import org.reins.demo.service.BookService;
 import org.reins.demo.service.MessageService;

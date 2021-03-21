@@ -1,9 +1,7 @@
 package org.reins.demo.controller;
 
-import org.reins.demo.entity.CartItemE;
-import org.reins.demo.message.OrderItemMsg;
-import org.reins.demo.message.OrderMsg;
-import org.reins.demo.model.Order;
+import org.reins.demo.kafka_msg.OrderItemMsg;
+import org.reins.demo.kafka_msg.OrderMsg;
 import org.reins.demo.service.BookService;
 import org.reins.demo.service.OrderService;
 import org.reins.demo.service.UserService;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -33,8 +30,11 @@ public class InitController {
     @GetMapping("/all")
     public void init() {
         userService.addUser("user1", "111");
-        userService.addUser("user2", "222");
-        userService.addUser("user3", "333");
+        userService.addUser("user2", "111");
+        userService.addUser("user3", "111");
+        userService.addUser("user4", "111");
+        userService.addUser("user5", "111");
+        userService.addUser("user6", "111");
         bookService.addBook("book1", 10, 5, "the name is book1");
         bookService.addBook("book2", 10, 5, "the name is book2");
         bookService.addBook("book3", 10, 5, "the name is book3");

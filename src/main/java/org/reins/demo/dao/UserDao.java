@@ -3,6 +3,7 @@ package org.reins.demo.dao;
 import org.reins.demo.entity.UserE;
 import org.reins.demo.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDao {
@@ -12,4 +13,5 @@ public interface UserDao {
 
     Integer addUser(User user);
 
+    List<User> findAll();
 }

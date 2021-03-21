@@ -1,7 +1,7 @@
 package org.reins.demo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.reins.demo.message.OrderMsg;
+import org.reins.demo.kafka_msg.OrderMsg;
 import org.reins.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;

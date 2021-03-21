@@ -2,12 +2,11 @@ package org.reins.demo.service.impl;
 
 import org.reins.demo.dao.BookDao;
 import org.reins.demo.entity.CartItemE;
-import org.reins.demo.message.OrderItemMsg;
-import org.reins.demo.message.OrderMsg;
+import org.reins.demo.kafka_msg.OrderItemMsg;
+import org.reins.demo.kafka_msg.OrderMsg;
 import org.reins.demo.model.CartItem;
 import org.reins.demo.service.CartService;
 import org.reins.demo.service.MessageService;
-import org.reins.demo.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;

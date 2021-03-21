@@ -2,11 +2,10 @@ package org.reins.demo.dao.impl;
 
 import org.reins.demo.dao.BookDao;
 import org.reins.demo.dao.OrderDao;
-import org.reins.demo.entity.CartItemE;
 import org.reins.demo.entity.OrderE;
 import org.reins.demo.entity.OrderItemE;
-import org.reins.demo.message.OrderItemMsg;
-import org.reins.demo.message.OrderMsg;
+import org.reins.demo.kafka_msg.OrderItemMsg;
+import org.reins.demo.kafka_msg.OrderMsg;
 import org.reins.demo.model.Book;
 import org.reins.demo.model.Order;
 import org.reins.demo.repository.OrderItemERepository;

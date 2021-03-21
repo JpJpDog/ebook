@@ -1,4 +1,4 @@
-package org.reins.demo.message;
+package org.reins.demo.kafka_msg;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
