@@ -9,4 +9,6 @@ public interface OrderService {
     List<Order> getOrders(Integer userId);
 
     Integer addOrder(OrderMsg msg);
+
+    Integer payOrder(Integer orderId);
 }

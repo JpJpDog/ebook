@@ -11,7 +11,11 @@ public interface UserDao {
 
     void saveUser(User user);
 
+    void saveBackUser(User user, Integer userId);
+
     Integer addUser(User user);
 
     List<User> findAll();
+
+    User findByUserName(String userName);
 }

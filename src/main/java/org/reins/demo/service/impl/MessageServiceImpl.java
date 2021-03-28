@@ -8,7 +8,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -26,7 +25,6 @@ public class MessageServiceImpl implements MessageService {
         } catch (Exception e) {
             return -1;
         }
-        System.out.println(msg.getClass().getName().getBytes(StandardCharsets.UTF_8));
         pr.headers().add("type", msg.getClass().getName().getBytes(StandardCharsets.UTF_8));
         kafkaTemplate.send(pr);
         return 0;

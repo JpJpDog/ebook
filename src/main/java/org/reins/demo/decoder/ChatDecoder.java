@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class MessageDecoder implements Decoder.Text<Message> {
+public class ChatDecoder implements Decoder.Text<Message> {
     private Map<String, String> messageMap;
 
     @Override

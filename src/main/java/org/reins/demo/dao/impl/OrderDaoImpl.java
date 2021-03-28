@@ -12,6 +12,8 @@ import org.reins.demo.repository.OrderItemERepository;
 import org.reins.demo.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +36,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public Order findById(Integer orderId) {
         Optional<OrderE> orderEOptional = orderRepository.findById(orderId);
         if (orderEOptional.isEmpty()) return null;
@@ -62,6 +65,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    @Transactional(propagation = Propagation.MANDATORY)
     public Integer addOrder(OrderMsg msg) {
         OrderE orderE = new OrderE(msg.getUserId(), msg.getAddress(), new Date());
         Integer orderId = orderRepository.save(orderE).getId();

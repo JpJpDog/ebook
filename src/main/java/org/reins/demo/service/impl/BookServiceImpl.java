@@ -32,8 +32,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Integer addBook(String bookname, Integer price, Integer stock, String description) {
-        Book book = new Book(bookname, price, stock, description);
+    public Integer addBook(String bookName, Integer price, Integer stock, String description) {
+        Book book = new Book(bookName, price, stock, description);
         return bookDao.addBook(book);
     }
 }

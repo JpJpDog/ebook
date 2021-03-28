@@ -28,6 +28,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void saveBackUser(User user, Integer userId) {
+        UserE userE = new UserE(user);
+        userE.setId(userId);
+        userRepository.save(userE);
+    }
+
+    @Override
     public Integer addUser(User user) {
         return userRepository.save(new UserE(user)).getId();
     }
@@ -40,5 +47,11 @@ public class UserDaoImpl implements UserDao {
             users.add(new User(userE));
         }
         return users;
+    }
+
+    @Override
+    public User findByUserName(String userName) {
+        Optional<UserE> userE = userRepository.findByName(userName);
+        return userE.map(User::new).orElse(null);
     }
 }

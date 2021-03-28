@@ -1,7 +1,7 @@
 package org.reins.demo.endpoint;
 
 import org.reins.demo.service.impl.ChatServiceImpl;
-import org.reins.demo.decoder.MessageDecoder;
+import org.reins.demo.decoder.ChatDecoder;
 import org.reins.demo.encoder.*;
 import org.reins.demo.socket_msg.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,8 @@ import javax.websocket.server.ServerEndpoint;
 
 
 @ServerEndpoint(
-        value = "/ebook",
-        decoders = {MessageDecoder.class},
+        value = "/chatroom",
+        decoders = {ChatDecoder.class},
         encoders = {HelloMessageEncoder.class, UserListMessageEncoder.class, SystemMessageEncoder.class, ChatMessageEncoder.class, ChatListMessageEncoder.class}
 )
 @Component
