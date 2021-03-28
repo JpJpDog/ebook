@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import ChatRoom from './pages/ChatRoom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import "antd/dist/antd.css"
+import LogInPage from './pages/LogInPage';
+import ChatRoomPage from './pages/ChatRoomPage'
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Switch>
-        <Route path="/chatroom" component={ChatRoom} />
+        <Route path="/logIn" component={LogInPage} />
+        <Route path="/chatroom" component={ChatRoomPage} />
         <Route path="/" component={App} />
       </Switch>
     </BrowserRouter>

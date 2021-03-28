@@ -1,10 +1,10 @@
-import { Col, Button, Row } from "antd";
+import { Col, Row } from "antd";
 import { useEffect, useRef, useState } from "react";
 import ChatList from "../components/ChatList";
 import ChatWindow from "../components/ChatWindow";
 import ChatLogIn from "../components/ChatLogIn";
 
-export default function ChatRoom() {
+export default function ChatRoomPage() {
     const [hasLogIn, setLogIn] = useState(false);
     const [userList, setUserList] = useState([]);
     const [dialogList, setDialogList] = useState([]);
@@ -27,7 +27,7 @@ export default function ChatRoom() {
     }
 
     useEffect(() => {
-        wsocket.current = new WebSocket("ws://localhost:8080/ebook");
+        wsocket.current = new WebSocket("ws://localhost:8080/chatroom");
         wsocket.current.onopen = () => { console.log("ws open") };
         wsocket.current.onclose = () => { alert("web socket close"); console.log("ws close") };
         wsocket.current.onmessage = (evt) => { onMessage(evt) };
@@ -46,7 +46,7 @@ export default function ChatRoom() {
     }, [chatName]);
 
     useEffect(() => {
-        
+
         console.log(chatName)
         if (buf.chatName !== chatName) {
             console.log("drop!!!");
@@ -57,7 +57,6 @@ export default function ChatRoom() {
 
     return (
         <>
-            <Button onClick={() => console.log(chatName)}>test</Button>
             {hasLogIn ?
                 <Row gutter={16}>
                     <Col span={6}>
