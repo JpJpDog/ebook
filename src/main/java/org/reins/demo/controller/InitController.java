@@ -38,10 +38,13 @@ public class InitController {
         bookService.addBook("book1", 10, 5, "the name is book1");
         bookService.addBook("book2", 10, 5, "the name is book2");
         bookService.addBook("book3", 10, 5, "the name is book3");
-        List<OrderItemMsg> orderItemMsgs = new ArrayList<>();
-        orderItemMsgs.add(new OrderItemMsg(1, 1));
-        orderItemMsgs.add(new OrderItemMsg(2, 2));
-        OrderMsg msg = new OrderMsg(1, "China", orderItemMsgs);
-        orderService.addOrder(msg);
+        bookService.addBook("book4", 10, 5, "the name is book3");
+        bookService.addBook("book5", 10, 5, "the name is book3");
+        bookService.addBook("book6", 10, 5, "the name is book3");
+//        List<OrderItemMsg> orderItemMsgs = new ArrayList<>();
+//        orderItemMsgs.add(new OrderItemMsg(1, 1));
+//        orderItemMsgs.add(new OrderItemMsg(2, 2));
+//        OrderMsg msg = new OrderMsg(1, "China", orderItemMsgs);
+//        orderService.addOrder(msg);
     }
 }

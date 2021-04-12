@@ -30,6 +30,7 @@ public class OrderMessageListener {
         OrderMsg msg;
         try {
             msg = objectMapper.readValue(message, getType(type));
+            System.out.format("### Kafka get order from userId %d\n", msg.getUserId());
         } catch (Exception e) {
             return -1;
         }

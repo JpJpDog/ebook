@@ -28,6 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private UserDao userDao;
 
     @Override
+    @Transactional
     public List<Order> getOrders(Integer userId) {
         return orderDao.findAllByUserId(userId);
     }
@@ -56,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
                 bookDao.saveBookE(book);
             }
             buyer.setMoney(allMoney - paySum);
-            userDao.saveUser(buyer);
+            userDao.saveBackUser(buyer,buyer.getUserId());
             order.setHasPay(true);
             orderDao.setOrderPay(order);
             return 0;

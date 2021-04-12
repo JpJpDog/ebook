@@ -41,25 +41,35 @@ public class StatisticServiceImpl implements StatisticService {
     @Override
     public void addVisitNum() {
         VisitNMessage vMsg = new VisitNMessage(visitNum.incrementAndGet());
-        boolean successLock = sendAllLock.tryLock();
-        if (!successLock) {
-            return;
+        synchronized (this) {
+            boolean successLock = sendAllLock.tryLock();
+            if (!successLock) {
+                return;
+            }
         }
-        try {
-            boolean updated = false;
-            do {
-                for (Session s : sessions.keySet()) {
-                    s.getBasicRemote().sendObject(vMsg);
+        boolean updated = false;
+        do {
+            try {
+                do {
+                    for (Session s : sessions.keySet()) {
+                        s.getBasicRemote().sendObject(vMsg);
+                        if (vMsg.getVisitN() != visitNum.get()) {
+                            updated = true;
+                            break;
+                        }
+                    }
+                } while (updated);
+            } catch (EncodeException | IOException e) {
+                e.printStackTrace();
+            } finally {
+                synchronized (this) {
                     if (vMsg.getVisitN() != visitNum.get()) {
                         updated = true;
-                        break;
+                    } else {
+                        sendAllLock.unlock();
                     }
                 }
-            } while (updated);
-        } catch (EncodeException | IOException e) {
-            e.printStackTrace();
-        } finally {
-            sendAllLock.unlock();
-        }
+            }
+        } while (updated);
     }
 }

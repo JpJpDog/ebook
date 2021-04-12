@@ -6,7 +6,6 @@ import org.reins.demo.service.StatisticService;
 import org.reins.demo.service.impl.StatisticServiceImpl;
 import org.reins.demo.socket_msg.GetVisitNMessage;
 import org.reins.demo.socket_msg.Message;
-import org.reins.demo.socket_msg.VisitNMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

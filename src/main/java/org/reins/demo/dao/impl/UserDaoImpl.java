@@ -51,7 +51,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findByUserName(String userName) {
-        Optional<UserE> userE = userRepository.findByName(userName);
-        return userE.map(User::new).orElse(null);
+        List<UserE> userEList = userRepository.findByName(userName);
+        if(userEList.isEmpty()) return null;
+        return new User(userEList.get(0));
     }
 }

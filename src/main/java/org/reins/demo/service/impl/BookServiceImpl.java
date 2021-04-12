@@ -8,6 +8,8 @@ import org.reins.demo.service.BookService;
 import org.reins.demo.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +22,17 @@ public class BookServiceImpl implements BookService {
     private MessageService messageService;
 
     @Override
+    @Transactional
     public List<Book> findBook(String bookname) {
         return bookDao.findByNameLike(bookname);
     }
 
     @Override
+    @Transactional
     public Integer buyBook(Integer userId, Integer bookId, Integer num, String address) {
         List<OrderItemMsg> orderItemMsgs = new ArrayList<>();
         orderItemMsgs.add(new OrderItemMsg(bookId, num));
+        System.out.format("### Kafka send book order from userId %d\n", userId);
         return messageService.sendMsg("book_order", new OrderMsg(userId, address, orderItemMsgs));
     }
 

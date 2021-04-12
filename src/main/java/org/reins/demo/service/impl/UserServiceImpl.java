@@ -7,6 +7,7 @@ import org.reins.demo.service.StatisticService;
 import org.reins.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private StatisticService statisticService;
 
     @Override
+    @Transactional
     public Integer logIn(String userName, String password) {
         User user = userDao.findByUserName(userName);
         if (!user.getPassword().equals(password)) {
@@ -40,11 +42,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer addUser(String username, String password) {
-        User newUser = new User(username, password, 100);
+        User newUser = new User(0,username, password, 100);
         return userDao.addUser(newUser);
     }
 
     @Override
+    @Transactional
     public Integer setMoney(Integer userId, Integer money) {
         User user = userDao.findByUserId(userId);
         user.setMoney(money);
