@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    <!--RMI客户端-->
+    <bean id="rmiProxyFactory" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+        <property name="serviceUrl" value="rmi://localhost:9099/findBook"/>
+        <property name="serviceInterface" value="org.reins.demo.service.BookRMIService"/>
+        <!-- 当连接失败时是否刷新远程调用stub -->
+        <property name="refreshStubOnConnectFailure" value="true"/>
+    </bean>
+</beans>
